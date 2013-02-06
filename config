@@ -1,0 +1,17 @@
+fn_cfg = {
+	read: {
+		companies: libs/api/r.companies.js,
+		users: libs/api/r.users.js
+	},
+	create: {
+	
+	},
+	update: {
+	
+	},
+	delete: {
+	
+	}
+}
+
+exports.cfg = fn_cfg;
