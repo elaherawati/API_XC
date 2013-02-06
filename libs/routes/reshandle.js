@@ -15,18 +15,6 @@ var connect = require('connect');
 	//dashModel = ModelSchema.dashModel;
 
 var route = function (r) {
-    /*r.get('/model', function(_req, _res){
-        collection.find(API_DSY, function(err, models){
-            if(!err){
-                console.log(models);
-            }else{
-                console.log(err);
-            }
-        });
-    });*/
-    
-    
-    
     // Home    
     r.get('/', function (_req, _res, next) {
         _res.render('page/index.html', { url: _req.url });
