@@ -4,7 +4,8 @@ var http = require('http'),
 	routeHandle = require('./libs/routes/reshandle'),
 	LoginHandle = require('./libs/api/login'),
 	SignupHandle =  require('./libs/api/signup'),
-	compHandle =  require('./libs/api/companies')
+	compHandle =  require('./libs/api/companies'),
+	ferHandle = require('./libs/api/ferify')
 
 var app = connect(
 	render({
@@ -26,7 +27,7 @@ app.use(routeHandle.router.doRoute);
 app.use(LoginHandle.LoginRoute);
 app.use(SignupHandle.signRoute);
 app.use(compHandle.compRoute);
-
+app.use(ferHandle.ferRoute);
 var server = http.createServer(app).listen(8899, function () {
 	console.log("Server listening on port 8899...");
 });

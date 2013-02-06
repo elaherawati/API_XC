@@ -4,15 +4,7 @@ var connect = require('connect');
     render = require('connect-render'),
 	mongoose = require('mongoose'),
     ModelSchema = require('../db/models'),
-    UsersModel = ModelSchema.UsersModel,
-    dataModel = ModelSchema.dataModel,
-	compModel = ModelSchema.compModel,
-	tenModel = ModelSchema.tenModel,
-	usModel = ModelSchema.usModel,
-	groModel = ModelSchema.groModel,
-	roleModel = ModelSchema.roleModel;
-	//modModel = ModelSchema.modModel,
-	//dashModel = ModelSchema.dashModel;
+    UsersModel = ModelSchema.UsersModel
 
  // *****Sign Up*****
 var s_route = function(r) {
