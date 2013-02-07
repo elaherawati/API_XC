@@ -6,7 +6,7 @@ var connect = require('connect');
     ModelSchema = require('../db/models'),
     UsersModel = ModelSchema.UsersModel,
     dataModel = ModelSchema.dataModel,
-	compModel = ModelSchema.compModel
+	roleModel = ModelSchema.roleModel
 	
 	
 var c_route = function(r) {
@@ -27,20 +27,18 @@ var c_route = function(r) {
                         if(_req.params.ws == WS){
                             //_res.end("LANJUUUTTT");
                         ///////////ISI///////////
-		                    if(_req.params.fn_ws == 'companies'){
-								company = new compModel({
-									init_company: _req.body.init_company,
-									nama_company: _req.body.nama_company,
-									alamat_company: _req.body.alamat_company,
-									no_telp: _req.body.no_telp,
-									deskripsi_company: _req.body.deskripsi_company
+		                    if(_req.params.fn_ws == 'roles'){
+								roles = new roleModel({
+									menu_id: _req.body.menu_id,
+									group_id: _req.body.group_id,
+									is_active: _req.body.is_active
 								});
-								company.save(function(err){
+								roles.save(function(err){
 									if(!err){
 										//_res.redirect('/member');
-										_res.end("COMPANIES SAVE");
+										_res.end("roles SAVE");
 									}else{
-										_res.redirect('/insert');
+										//_res.redirect('/insert');
 										_res.end("ERROR");
 									};
 								});
@@ -79,11 +77,11 @@ var c_route = function(r) {
                         if(_req.params.ws == WS){
                             //_res.end("LANJUUUTTT");
                         ///////////ISI///////////
-							if (_req.params.fn_ws == 'companies'){
+							if (_req.params.fn_ws == 'roles'){
 								var url_path = url.parse(_req.url, true);
-									compModel.find(url_path, function(err, comps){
+									roleModel.find(url_path, function(err, rl){
 									if(!err){
-										console.log(comps);
+										console.log(rl);
 									}else{
 										_res.end("data kosong");
 										return console.log(err);
@@ -124,18 +122,16 @@ var c_route = function(r) {
                         if(_req.params.ws == WS){
                             //_res.end("LANJUUUTTT");
                         ///////////ISI///////////
-		                    if(_req.params.fn_ws == 'companies'){
+		                    if(_req.params.fn_ws == 'roles'){
 								var url_path = url.parse(_req.url, true);
-								return compModel.findOne(url_path, function(err, comps){
+								return roleModel.findOne(url_path, function(err, rl){
 									if(!err){
-										comps.init_company = _req.body.init_company,
-										comps.nama_company = _req.body.nama_company,
-										comps.alamat_company = _req.body.alamat_company,
-										comps.no_telp = _req.body.no_telp,
-										comps.description_company = _req.body.description_company
-										comps.save(function(error){
+										rl.menu_id = _req.body.menu_id,
+										rl.group_id = _req.body.group_id,
+										rl.is_active = _req.body.is_active
+										rl.save(function(error){
 											if(!error){
-												return _res.end("COMPANIES UPDATE");
+												return _res.end("ROLES UPDATE");
 											}else{
 												console.log(error);
 												_res.end("ERROR");
@@ -180,13 +176,13 @@ var c_route = function(r) {
                         if(_req.params.ws == WS){
                             //_res.end("LANJUUUTTT");
                         ///////////ISI///////////
-                            if(_req.params.fn_ws == 'companies'){
+                            if(_req.params.fn_ws == 'roles'){
 								var url_path = url.parse(_req.url, true);
 								return dataModel.findOne(url_path, function(err, data){
 								  if (!err){
 									return data.remove(function(error){
 									  if(!error){
-										return _res.end("Companies has Delete !!!");
+										return _res.end("roles has Delete !!!");
 									  }else{
 										return console.log(error);
 									  };
@@ -214,5 +210,5 @@ var c_route = function(r) {
         }
     });
 };
-var compRoute = connectRoute(c_route);
-exports.compRoute = compRoute;
+var roleRoute = connectRoute(c_route);
+exports.roleRoute = roleRoute;

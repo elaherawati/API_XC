@@ -5,7 +5,12 @@ var http = require('http'),
 	LoginHandle = require('./libs/api/login'),
 	SignupHandle =  require('./libs/api/signup'),
 	compHandle =  require('./libs/api/companies'),
-	ferHandle = require('./libs/api/ferify')
+	ferHandle = require('./libs/api/ferify'),
+	tenHandle = require('./libs/api/tenant'),
+	usHandle = require('./libs/api/user'),
+	grHandle = require('./libs/api/group'),
+	modHandle = require('./libs/api/modules'),
+	roleHandle = require('./libs/api/roles')
 
 var app = connect(
 	render({
@@ -28,6 +33,12 @@ app.use(LoginHandle.LoginRoute);
 app.use(SignupHandle.signRoute);
 app.use(compHandle.compRoute);
 app.use(ferHandle.ferRoute);
+app.use(tenHandle.tenRoute);
+app.use(usHandle.usRoute);
+app.use(grHandle.grRoute);
+app.use(modHandle.modRoute);
+app.use(roleHandle.roleRoute);
+
 var server = http.createServer(app).listen(8899, function () {
 	console.log("Server listening on port 8899...");
 });

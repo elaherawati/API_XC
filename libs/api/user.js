@@ -6,7 +6,7 @@ var connect = require('connect');
     ModelSchema = require('../db/models'),
     UsersModel = ModelSchema.UsersModel,
     dataModel = ModelSchema.dataModel,
-	compModel = ModelSchema.compModel
+	usModel = ModelSchema.usModel
 	
 	
 var c_route = function(r) {
@@ -27,20 +27,21 @@ var c_route = function(r) {
                         if(_req.params.ws == WS){
                             //_res.end("LANJUUUTTT");
                         ///////////ISI///////////
-		                    if(_req.params.fn_ws == 'companies'){
-								company = new compModel({
-									init_company: _req.body.init_company,
-									nama_company: _req.body.nama_company,
-									alamat_company: _req.body.alamat_company,
-									no_telp: _req.body.no_telp,
-									deskripsi_company: _req.body.deskripsi_company
+		                    if(_req.params.fn_ws == 'user'){
+								user = new usModel({
+									user_name: _req.body.user_name,
+									id_group: _req.body.id_group,
+									real_name: _req.body.real_name,
+									is_active: _req.body.is_active,
+									last_login: _req.body.last_login,
+									id_tenant: _req.body.id_tenant
 								});
-								company.save(function(err){
+								user.save(function(err){
 									if(!err){
 										//_res.redirect('/member');
-										_res.end("COMPANIES SAVE");
+										_res.end("DATA SAVE");
 									}else{
-										_res.redirect('/insert');
+										//_res.redirect('/insert');
 										_res.end("ERROR");
 									};
 								});
@@ -79,11 +80,11 @@ var c_route = function(r) {
                         if(_req.params.ws == WS){
                             //_res.end("LANJUUUTTT");
                         ///////////ISI///////////
-							if (_req.params.fn_ws == 'companies'){
+							if (_req.params.fn_ws == 'user'){
 								var url_path = url.parse(_req.url, true);
-									compModel.find(url_path, function(err, comps){
+									usModel.find(url_path, function(err, usr){
 									if(!err){
-										console.log(comps);
+										console.log(usr);
 									}else{
 										_res.end("data kosong");
 										return console.log(err);
@@ -124,18 +125,19 @@ var c_route = function(r) {
                         if(_req.params.ws == WS){
                             //_res.end("LANJUUUTTT");
                         ///////////ISI///////////
-		                    if(_req.params.fn_ws == 'companies'){
+		                    if(_req.params.fn_ws == 'user'){
 								var url_path = url.parse(_req.url, true);
-								return compModel.findOne(url_path, function(err, comps){
+								return usModel.findOne(url_path, function(err, usr){
 									if(!err){
-										comps.init_company = _req.body.init_company,
-										comps.nama_company = _req.body.nama_company,
-										comps.alamat_company = _req.body.alamat_company,
-										comps.no_telp = _req.body.no_telp,
-										comps.description_company = _req.body.description_company
-										comps.save(function(error){
+										usr.user_name = _req.body.user_name,
+										usr.id_group = _req.body.id_group,
+										usr.real_name = _req.body.real_name,
+										usr.is_active = _req.body.is_active,
+										usr.last_login = _req.body.last_login,
+										usr.id_tenant = _req.body.id_tenant
+										usr.save(function(error){
 											if(!error){
-												return _res.end("COMPANIES UPDATE");
+												return _res.end("USERS UPDATE");
 											}else{
 												console.log(error);
 												_res.end("ERROR");
@@ -180,13 +182,13 @@ var c_route = function(r) {
                         if(_req.params.ws == WS){
                             //_res.end("LANJUUUTTT");
                         ///////////ISI///////////
-                            if(_req.params.fn_ws == 'companies'){
+                            if(_req.params.fn_ws == 'user'){
 								var url_path = url.parse(_req.url, true);
 								return dataModel.findOne(url_path, function(err, data){
 								  if (!err){
 									return data.remove(function(error){
 									  if(!error){
-										return _res.end("Companies has Delete !!!");
+										return _res.end("User has Delete !!!");
 									  }else{
 										return console.log(error);
 									  };
@@ -214,5 +216,5 @@ var c_route = function(r) {
         }
     });
 };
-var compRoute = connectRoute(c_route);
-exports.compRoute = compRoute;
+var usRoute = connectRoute(c_route);
+exports.usRoute = usRoute;

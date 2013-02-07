@@ -6,7 +6,7 @@ var connect = require('connect');
     ModelSchema = require('../db/models'),
     UsersModel = ModelSchema.UsersModel,
     dataModel = ModelSchema.dataModel,
-	compModel = ModelSchema.compModel
+	tenModel = ModelSchema.tenModel
 	
 	
 var c_route = function(r) {
@@ -27,20 +27,21 @@ var c_route = function(r) {
                         if(_req.params.ws == WS){
                             //_res.end("LANJUUUTTT");
                         ///////////ISI///////////
-		                    if(_req.params.fn_ws == 'companies'){
-								company = new compModel({
-									init_company: _req.body.init_company,
-									nama_company: _req.body.nama_company,
-									alamat_company: _req.body.alamat_company,
+		                    if(_req.params.fn_ws == 'tenant'){
+								tenant = new tenModel({
+									init_tenant: _req.body.init_tenant,
+									nama_tenant: _req.body.nama_tenant,
+									alamat_tenant: _req.body.alamat_tenant,
 									no_telp: _req.body.no_telp,
-									deskripsi_company: _req.body.deskripsi_company
+									pic: _req.body.pic,
+									notes: _req.body.notes
 								});
-								company.save(function(err){
+								tenant.save(function(err){
 									if(!err){
 										//_res.redirect('/member');
-										_res.end("COMPANIES SAVE");
+										_res.end("DATA SAVE");
 									}else{
-										_res.redirect('/insert');
+										//_res.redirect('/insert');
 										_res.end("ERROR");
 									};
 								});
@@ -79,11 +80,11 @@ var c_route = function(r) {
                         if(_req.params.ws == WS){
                             //_res.end("LANJUUUTTT");
                         ///////////ISI///////////
-							if (_req.params.fn_ws == 'companies'){
+							if (_req.params.fn_ws == 'tenant'){
 								var url_path = url.parse(_req.url, true);
-									compModel.find(url_path, function(err, comps){
+									tenModel.find(url_path, function(err, tens){
 									if(!err){
-										console.log(comps);
+										console.log(tens);
 									}else{
 										_res.end("data kosong");
 										return console.log(err);
@@ -124,18 +125,19 @@ var c_route = function(r) {
                         if(_req.params.ws == WS){
                             //_res.end("LANJUUUTTT");
                         ///////////ISI///////////
-		                    if(_req.params.fn_ws == 'companies'){
+		                    if(_req.params.fn_ws == 'tenant'){
 								var url_path = url.parse(_req.url, true);
-								return compModel.findOne(url_path, function(err, comps){
+								return tenModel.findOne(url_path, function(err, tens){
 									if(!err){
-										comps.init_company = _req.body.init_company,
-										comps.nama_company = _req.body.nama_company,
-										comps.alamat_company = _req.body.alamat_company,
-										comps.no_telp = _req.body.no_telp,
-										comps.description_company = _req.body.description_company
-										comps.save(function(error){
+										tens.init_tenant = _req.body.init_tenant,
+										tens.nama_tenant = _req.body.nama_tenant,
+										tens.alamat_tenant = _req.body.alamat_tenant,
+										tens.no_telp = _req.body.no_telp,
+										tens.pic = _req.body.pic,
+										tens.notes = _req.body.notes
+										tens.save(function(error){
 											if(!error){
-												return _res.end("COMPANIES UPDATE");
+												return _res.end("TENANT UPDATE");
 											}else{
 												console.log(error);
 												_res.end("ERROR");
@@ -180,13 +182,13 @@ var c_route = function(r) {
                         if(_req.params.ws == WS){
                             //_res.end("LANJUUUTTT");
                         ///////////ISI///////////
-                            if(_req.params.fn_ws == 'companies'){
+                            if(_req.params.fn_ws == 'tenant'){
 								var url_path = url.parse(_req.url, true);
 								return dataModel.findOne(url_path, function(err, data){
 								  if (!err){
 									return data.remove(function(error){
 									  if(!error){
-										return _res.end("Companies has Delete !!!");
+										return _res.end("Tenant has Delete !!!");
 									  }else{
 										return console.log(error);
 									  };
@@ -214,5 +216,5 @@ var c_route = function(r) {
         }
     });
 };
-var compRoute = connectRoute(c_route);
-exports.compRoute = compRoute;
+var tenRoute = connectRoute(c_route);
+exports.tenRoute = tenRoute;
