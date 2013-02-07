@@ -5,8 +5,7 @@ var connect = require('connect');
 	mongoose = require('mongoose'),
     ModelSchema = require('../db/models'),
     UsersModel = ModelSchema.UsersModel
-
- // *****Sign Up*****
+	
 var f_route = function(r) {
     // *****Read Activation*****
     r.get('/:r/:key/:ws', function(_req, _res){
